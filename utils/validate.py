@@ -141,37 +141,27 @@ def validate(data, id_to_lang_map):
     } 
 
 
-if __name__ == '__main__':
-    if platform.system() == 'Darwin':  
-        try:
-            multiprocessing.set_start_method('spawn')
-        except RuntimeError:
-            pass
-    else: 
-        try:
-            multiprocessing.set_start_method('fork')
-        except RuntimeError:
-            pass
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output_path", type=str, required=True)
-    parser.add_argument("--raw_data_path", type=str, required=True)
-    parser.add_argument("--query_data_path", type=str, required=True, help="Path to query data with language information")
-    parser.add_argument("--n_total_process", type=int, default=1)
-    args = parser.parse_args()
-    
-    output_path = args.output_path
-    raw_data = load_jsonl(args.raw_data_path)
-    
+def validate_all(
+    output_path: str,
+    raw_data_path: str,
+    query_data_path: str,
+    n_total_process: int
+) -> list:
+    raw_data = load_jsonl(raw_data_path)
+    results = []
+
     # Load the query data to get language information
-    query_data = load_jsonl(args.query_data_path)
-    
+    query_data = load_jsonl(query_data_path)
+
     # Create a mapping from ID to language
-    id_to_lang_map = {item['id']: item.get('language') for item in query_data if 'id' in item and 'language' in item}
-    
+    id_to_lang_map = {
+        item['id']: item.get('language')
+        for item in query_data
+        if 'id' in item and 'language' in item
+    }
+
     if not id_to_lang_map:
         raise ValueError("No valid language information found in query data")
-    
-    n_total_process = args.n_total_process
 
     # if the output file exists, load the processed ids and filter out the processed instances
     if os.path.exists(output_path):
@@ -185,14 +175,13 @@ if __name__ == '__main__':
     for d in tqdm(data_to_process):
         # get the citations that need to be validated
         citations = [(k, v) for k, v in d['citations_deduped'].items()]
-        
+
         # Add article_id to each citation's value for language determination
-        # This is where we pass the parent article's ID to each citation
         article_id = d.get('id')
         if not article_id:
             print(f"Warning: Article has no ID field, skipping validation")
             continue
-            
+
         for citation in citations:
             citation[1]['article_id'] = article_id
 
@@ -202,11 +191,40 @@ if __name__ == '__main__':
             run_partial = partial(validate, id_to_lang_map=id_to_lang_map)
             with multiprocessing.Pool(processes=n_total_process) as pool:
                 results = pool.map(run_partial, citations)
-        
+
         for res in results:
             d['citations_deduped'][res['url']]['validate_res'] = res['validate_res']
             d['citations_deduped'][res['url']]['validate_error'] = res['error']
 
         with open(output_path, 'a+', encoding='utf-8') as f:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
+
+    return results
+
+
+if __name__ == '__main__':
+    if platform.system() == 'Darwin':
+        try:
+            multiprocessing.set_start_method('spawn')
+        except RuntimeError:
+            pass
+    else:
+        try:
+            multiprocessing.set_start_method('fork')
+        except RuntimeError:
+            pass
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--raw_data_path", type=str, required=True)
+    parser.add_argument("--query_data_path", type=str, required=True, help="Path to query data with language information")
+    parser.add_argument("--n_total_process", type=int, default=1)
+    args = parser.parse_args()
+
+    validate_all(
+        output_path=args.output_path,
+        raw_data_path=args.raw_data_path,
+        query_data_path=args.query_data_path,
+        n_total_process=args.n_total_process,
+    )
 

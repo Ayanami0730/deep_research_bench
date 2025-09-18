@@ -116,32 +116,31 @@ def run(data, output_path, id_to_lang_map):
         with open(output_path, "a+", encoding='utf-8') as f:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
 
-        print(f">>>>>>>>>> generating {d['id']}-th instance...") 
+        print(f">>>>>>>>>> generating {d['id']}-th instance...")
 
-if __name__ == '__main__':
 
-    multiprocessing.set_start_method('fork')
+def deduplicate_all(
+        output_path: str,
+        raw_data_path: str,
+        query_data_path: str,
+        n_total_process: int
+) -> list:
+    raw_data = load_jsonl(raw_data_path)
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output_path", type=str, required=True)
-    parser.add_argument("--raw_data_path", type=str, required=True)
-    parser.add_argument("--query_data_path", type=str, required=True, help="Path to query data with language information")
-    parser.add_argument("--n_total_process", type=int, default=1)
-    args = parser.parse_args()
-    
-    output_path = args.output_path
-    raw_data = load_jsonl(args.raw_data_path)
-    
     # Load the query data to get language information
-    query_data = load_jsonl(args.query_data_path)
-    
+    query_data = load_jsonl(query_data_path)
+
     # Create a mapping from ID to language
-    id_to_lang_map = {item['id']: item.get('language') for item in query_data if 'id' in item and 'language' in item}
-    
+    id_to_lang_map = {
+        item['id']: item.get('language')
+        for item in query_data
+        if 'id' in item and 'language' in item
+    }
+
     if not id_to_lang_map:
         raise ValueError("No valid language information found in query data")
 
-    # if the output file exists, load the processed ids and filter out the processed instances
+    # If the output file exists, load the processed ids and filter out the processed instances
     if os.path.exists(output_path):
         processed = [d['id'] for d in load_jsonl(output_path)]
         data_to_process = [d for d in raw_data if d['id'] not in processed]
@@ -150,12 +149,34 @@ if __name__ == '__main__':
 
     print(f"Processing {len(data_to_process)} instances...")
 
-    n_total_process = args.n_total_process
     if n_total_process == 1:
         run(data_to_process, output_path, id_to_lang_map)
     elif n_total_process > 1:
         part_size = (len(data_to_process) + n_total_process - 1) // n_total_process
-        data_splits = [data_to_process[i * part_size : (i + 1) * part_size] for i in range(n_total_process)]
+        data_splits = [
+            data_to_process[i * part_size: (i + 1) * part_size]
+            for i in range(n_total_process)
+        ]
         run_partial = partial(run, output_path=output_path, id_to_lang_map=id_to_lang_map)
         with multiprocessing.Pool(processes=n_total_process) as pool:
             results = pool.map(run_partial, data_splits)
+
+    return results
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method('fork')
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--raw_data_path", type=str, required=True)
+    parser.add_argument("--query_data_path", type=str, required=True,
+                        help="Path to query data with language information")
+    parser.add_argument("--n_total_process", type=int, default=1)
+    args = parser.parse_args()
+
+    deduplicate_all(
+        output_path=args.output_path,
+        raw_data_path=args.raw_data_path,
+        query_data_path=args.query_data_path,
+        n_total_process=args.n_total_process,
+    )
