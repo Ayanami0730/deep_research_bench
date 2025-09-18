@@ -241,7 +241,7 @@ def process_language_data(language: str, target_model: str, llm_client: AIClient
 
 def load_existing_results(output_dir: str, force: bool, limit: int, target_model: str) -> tuple:
     """Load existing results from disk unless force is set."""
-    output_file = os.path.join(output_dir, f"{target_model}_raw_results.jsonl")
+    output_file = os.path.join(output_dir, f"{target_model}/raw_results.jsonl")
     existing_results, existing_ids = [], set()
 
     if os.path.exists(output_file) and not force:
@@ -289,8 +289,9 @@ def summarize_results(results: List[Dict]) -> Union[dict, None]:
 
 def save_results(results, output_dir: str, target_model: str):
     """Save results and summary to disk."""
-    output_file = os.path.join(output_dir, f"{target_model}_raw_results.jsonl")
-    result_file = os.path.join(output_dir, f"{target_model}_summary.txt")
+    os.makedirs(os.path.join(output_dir, f"{target_model}"), exist_ok=True)
+    output_file = os.path.join(output_dir, f"{target_model}/raw_results.jsonl")
+    result_file = os.path.join(output_dir, f"{target_model}/race_result.txt")
 
     results.sort(key=lambda x: x.get('id', float('inf')))
     try:
