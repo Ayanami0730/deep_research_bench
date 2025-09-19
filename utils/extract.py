@@ -156,7 +156,8 @@ def extract_all(
         output_path: str,
         raw_data_path: str,
         query_data_path: str,
-        n_total_process: int
+        n_total_process: int,
+        limit: int
 ) -> list:
     # Load the query data to get language information
     query_data = load_jsonl(query_data_path)
@@ -173,6 +174,10 @@ def extract_all(
 
     # Load the raw data
     raw_data = load_jsonl(raw_data_path)
+
+    # Apply limit if specified
+    if limit:
+        raw_data = raw_data[:limit]
 
     # If the output file exists, load the processed ids and filter out the processed instances
     if os.path.exists(output_path):
@@ -213,6 +218,7 @@ if __name__ == '__main__':
     parser.add_argument("--query_data_path", type=str, required=True,
                         help="Path to query data with language information")
     parser.add_argument("--n_total_process", type=int, default=1)
+    parser.add_argument('--limit', type=int, default=None, help='Limit on number of prompts to process (for testing).')
     args = parser.parse_args()
 
     extract_all(
@@ -220,4 +226,5 @@ if __name__ == '__main__':
         raw_data_path=args.raw_data_path,
         query_data_path=args.query_data_path,
         n_total_process=args.n_total_process,
+        limit=args.limit
     )
