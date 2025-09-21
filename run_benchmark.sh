@@ -9,7 +9,7 @@ N_TOTAL_PROCESS=10
 QUERY_DATA_PATH="data/prompt_data/query.jsonl"
 
 # Limit on number of prompts to process (for testing). Uncomment to enable
-# LIMIT="--limit 2"
+#LIMIT="--limit 2"
 
 # Skip article cleaning step. Uncomment to enable
 # SKIP_CLEANING="--skip_cleaning"
@@ -37,37 +37,39 @@ for TARGET_MODEL in "${TARGET_MODELS[@]}"; do
   RACE_OUTPUT="$OUTPUT_DIR/race/$TARGET_MODEL"
   mkdir -p "$RACE_OUTPUT"
 
-  # Build RACE command as an array
-  PYTHON_CMD=(python -u deepresearch_bench_race.py "$TARGET_MODEL"
-              --raw_data_dir "$RAW_DATA_DIR"
-              --max_workers "$N_TOTAL_PROCESS"
-              --query_file "$QUERY_DATA_PATH"
-              --output_dir "$RACE_OUTPUT")
+  # Build RACE command as a string
+  PYTHON_CMD="python -u deepresearch_bench_race.py \"$TARGET_MODEL\" \
+    --raw_data_dir \"$RAW_DATA_DIR\" \
+    --max_workers \"$N_TOTAL_PROCESS\" \
+    --query_file \"$QUERY_DATA_PATH\" \
+    --output_dir \"$RACE_OUTPUT\""
 
   # Add optional flags
-  [[ -n "$LIMIT" ]] && PYTHON_CMD+=("$LIMIT")
-  [[ -n "$SKIP_CLEANING" ]] && PYTHON_CMD+=("$SKIP_CLEANING")
-  [[ -n "$ONLY_ZH" ]] && PYTHON_CMD+=("$ONLY_ZH")
-  [[ -n "$ONLY_EN" ]] && PYTHON_CMD+=("$ONLY_EN")
-  [[ -n "$FORCE" ]] && PYTHON_CMD+=("$FORCE")
+  [[ -n "$LIMIT" ]] && PYTHON_CMD="$PYTHON_CMD $LIMIT"
+  [[ -n "$SKIP_CLEANING" ]] && PYTHON_CMD="$PYTHON_CMD $SKIP_CLEANING"
+  [[ -n "$ONLY_ZH" ]] && PYTHON_CMD="$PYTHON_CMD $ONLY_ZH"
+  [[ -n "$ONLY_EN" ]] && PYTHON_CMD="$PYTHON_CMD $ONLY_EN"
+  [[ -n "$FORCE" ]] && PYTHON_CMD="$PYTHON_CMD $FORCE"
 
-  echo "Executing command: ${PYTHON_CMD[*]}" | tee -a "$OUTPUT_LOG_FILE"
-  "${PYTHON_CMD[@]}" >> "$OUTPUT_LOG_FILE" 2>&1
+  echo "Executing command: $PYTHON_CMD" | tee -a "$OUTPUT_LOG_FILE"
+  eval $PYTHON_CMD >> "$OUTPUT_LOG_FILE" 2>&1
 
   echo "Completed RACE benchmark test for target model: $TARGET_MODEL"
   echo -e "\n========== RACE test completed for $TARGET_MODEL ==========\n" >> "$OUTPUT_LOG_FILE"
 
   # --- Phase 2: FACT Evaluation ---
   echo "==== Phase 2: Running FACT Evaluation for $TARGET_MODEL ====" | tee -a "$OUTPUT_LOG_FILE"
-  CITATION_OUTPUT="$OUTPUT_DIR/fact/$TARGET_MODEL"
-  mkdir -p "$CITATION_OUTPUT"
+  FACT_OUTPUT="$OUTPUT_DIR/fact/$TARGET_MODEL"
+  mkdir -p "$FACT_OUTPUT"
 
-  # Single call to FACT benchmark script
-  FACT_CMD=(python -u deepresearch_bench_fact.py "$TARGET_MODEL"
-            --raw_data_dir "$RAW_DATA_DIR"
-            --query_file "$QUERY_DATA_PATH"
-            --output_dir "$OUTPUT_DIR"
-            --n_total_process "$N_TOTAL_PROCESS")
+  FACT_CMD="python -u deepresearch_bench_fact.py \"$TARGET_MODEL\" \
+    --raw_data_dir \"$RAW_DATA_DIR\" \
+    --query_file \"$QUERY_DATA_PATH\" \
+    --output_dir \"$FACT_OUTPUT\" \
+    --n_total_process \"$N_TOTAL_PROCESS\""
+
+  # Add optional flags
+  [[ -n "$LIMIT" ]] && FACT_CMD="$FACT_CMD $LIMIT"
 
   echo "Executing command: ${FACT_CMD[*]}" | tee -a "$OUTPUT_LOG_FILE"
   "${FACT_CMD[@]}" >> "$OUTPUT_LOG_FILE" 2>&1

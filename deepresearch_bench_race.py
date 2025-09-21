@@ -241,7 +241,7 @@ def process_language_data(language: str, target_model: str, llm_client: AIClient
 
 def load_existing_results(output_dir: str, force: bool, limit: int, target_model: str) -> tuple:
     """Load existing results from disk unless force is set."""
-    output_file = os.path.join(output_dir, f"{target_model}/raw_results.jsonl")
+    output_file = os.path.join(output_dir, "raw_results.jsonl")
     existing_results, existing_ids = [], set()
 
     if os.path.exists(output_file) and not force:
@@ -289,9 +289,8 @@ def summarize_results(results: List[Dict]) -> Union[dict, None]:
 
 def save_results(results, output_dir: str, target_model: str):
     """Save results and summary to disk."""
-    os.makedirs(os.path.join(output_dir, f"{target_model}"), exist_ok=True)
-    output_file = os.path.join(output_dir, f"{target_model}/raw_results.jsonl")
-    result_file = os.path.join(output_dir, f"{target_model}/race_result.txt")
+    output_file = os.path.join(output_dir, "raw_results.jsonl")
+    result_file = os.path.join(output_dir, "race_result.txt")
 
     results.sort(key=lambda x: x.get('id', float('inf')))
     try:
@@ -363,13 +362,18 @@ def main():
     parser.add_argument('--max_workers', type=int, default=5, help='Maximum number of worker threads.')
     parser.add_argument('--query_file', type=str, default="data/prompt_data/query.jsonl",
                         help='Path to query file with language information.')
-    parser.add_argument('--output_dir', type=str, default="results", help='Directory for output results.')
+    parser.add_argument('--output_dir', type=str, default="", help='Directory for output results.')
     args = parser.parse_args()
 
-    os.makedirs(args.output_dir, exist_ok=True)
+    if args.output_dir:
+        output_dir = args.output_dir
+    else:
+        output_dir = os.path.join("results", args.target_model)
+
+    os.makedirs(output_dir, exist_ok=True)
 
     # Load existing results if available
-    existing_results, existing_ids = load_existing_results(args.output_dir, args.force, args.limit, args.target_model)
+    existing_results, existing_ids = load_existing_results(output_dir, args.force, args.limit, args.target_model)
 
     llm_client = AIClient()
     clean_agent = llm_client
@@ -399,14 +403,14 @@ def main():
 
     # Save results if available
     if all_results:
-        save_results(all_results, args.output_dir, args.target_model)
+        save_results(all_results, output_dir, args.target_model)
     else:
         logger.warning("No results to save.")
 
     logger.info("--- Run Summary ---")
     logger.info(f"Target model: {args.target_model}")
     logger.info(f"Total tasks processed: {len(all_results)}")
-    logger.info(f"Results dir: {args.output_dir}")
+    logger.info(f"Results dir: {output_dir}")
     logger.info("-------------------")
 
 
