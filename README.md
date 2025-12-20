@@ -112,7 +112,7 @@ FACT evaluates **information retrieval and grounding capabilities** through:
 ### Setup
 
 ```bash
-git clone https://github.com/your-username/deep_research_bench.git
+git clone https://github.com/Ayanami0730/deep_research_bench.git
 cd deep_research_bench
 pip install -r requirements.txt
 ```
