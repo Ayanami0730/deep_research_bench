@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [31 Mar 2026] 📝 **Leaderboard Submission Update**: We have clarified the official leaderboard submission requirements in the README. Submissions should now include a temporary **Gemini-2.5-Pro** accessible key, the **raw generated reports**, reproducibility links (repository or product/API link), and model metadata such as **model name, link, and open-source license**. Please contact **dumingxuan@mail.ustc.edu.cn** and **imlrz@mail.ustc.edu.cn** for submission, and see [**Submit to Leaderboard**](#submit-to-leaderboard) for details.
+
 + [25 Mar 2026] 🎉 **New Model Added**: We welcome [**MS-Agent Agentic Insight v2（Qwen3.5-Plus、GPT 5）**](https://github.com/modelscope/ms-agent) — an open-source deep research agent (Apache-2.0 license), achieving an overall score of **54.97**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [20 Mar 2026] 🎉 **New Models Added**: We welcome three new models to DeepResearch Bench:
@@ -22,23 +24,6 @@
   
   Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
-+ [17 Mar 2026] 🎉 **New Model Added**: We welcome [**CMCC-DeepInsight**](http://81.70.174.140:3000/) — achieving an overall score of **55.24** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [8 Mar 2026] 🎉 **New Model Added**: We welcome [**nvidia-aiq (Nemotron 3, GPT 5.2)**](https://github.com/NVIDIA-AI-Blueprints/aiq/tree/drb1) — an open-source deep research agent (Apache-2.0 license), achieving an overall score of **55.95**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [6 Mar 2026] 🎉 **New Model Added**: We welcome [**Xiaoyi DeepResearch**](https://xiaoyi.huawei.com/chat/research) — a proprietary deep research agent, achieves **1st place** with an overall score of **55.13**! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [2 Mar 2026] 🎉 **New Model Added**: We welcome [**Bodhi Deep Research**](https://www.publicissapient.com/platforms/bodhi) — a proprietary deep research agent, achieving an overall score of **54.22**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [28 Feb 2026] 🎉 **New Model Added**: We welcome [**UESTC-MBSE-RAAA-DeepResearch**](https://github.com/wee235929-cmyk/RequirementAgent), achieving an overall score of **46.13**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [17 Feb 2026] 🏆 **Leaderboard Update**: [CellCog](https://www.cellcog.ai) has updated its scores and reclaimed **1st place** with an overall score of **54.65**! Congratulations to the CellCog team! Check out the full rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [12 Feb 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
-  - 🥇 [**Onyx Deep Research**](https://github.com/onyx-dot-app/onyx) — an open-source deep research agent (MIT license), achieves **1st place** with an overall score of **54.54**! Congratulations to the Onyx team!
-  - [**Dr. Tulu**](https://github.com/rlresearch/dr-tulu) — a new open-source deep research agent (Apache-2.0 license).
-  
-  Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [6 Feb 2026] 🚀 **DeepResearch Bench II Release**: We have released **DeepResearch Bench II (DRB II)** ([homepage](https://agentresearchlab.org/benchmarks/deepresearch-bench-ii/index.html#home)｜[repo](https://github.com/imlrz/DeepResearch-Bench-II)｜[paper](https://arxiv.org/abs/2601.08536)). We welcome you to evaluate and exchange ideas. Note that DRB II, as a follow-up to DRB, has a different evaluation focus from DRB; **DRB will continue to be maintained and updated** after the release of DRB II. For more details, please refer to the [DRB II paper](https://arxiv.org/abs/2601.08536).
 
@@ -50,25 +35,8 @@
   - **Agents**:
     - [A-RAG](https://arxiv.org/abs/2602.03442): An agentic RAG framework that exposes hierarchical retrieval interfaces (keyword search, semantic search, chunk read) to the model for adaptive multi-granularity retrieval.
     - [FS-Researcher](https://arxiv.org/abs/2602.01566): A file-system-based dual-agent framework (Context Builder + Report Writer) that scales deep research beyond the context window via a persistent knowledge base.
-
-[6 Feb 2026] 🏆 **Leaderboard Update**: [Cellcog](https://www.cellcog.ai)'s new model has achieved **1st place**! Check out the full rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-
-+ [3 Feb 2026] 🎉 **Leaderboard Update**: [**Qianfan-DeepResearch Pro**](https://github.com/baidubce/qianfan-deepresearch-bench) and [**Qianfan-DeepResearch**](https://github.com/baidubce/qianfan-deepresearch-bench) have achieved **1st and 2nd place**! Check out the full rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [22 Nov 2025] 🎉 **New Leaderboard Update**: 
-  - 🏆 **Congratulations to [Tavily Research](https://deepresearch.tavily.com)** for achieving **1st place** on DeepResearch Bench! Tavily Research demonstrates outstanding performance across all evaluation metrics, setting a new benchmark for deep research agents.
-  - We have also evaluated **Tongyi-deepresearch-30B-A3B**, showcasing competitive performance in research report generation. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [17 Nov 2025] 🚀 **New Achievements & Dataset Release**: 
-  - We are thrilled to announce that **[Thinkdepth.ai](https://github.com/thinkdepthai/Deep_Research)** has achieved **1st place** on the RACE evaluation, showcasing exceptional performance in research report generation quality!
-  - 🎯 **Human Annotation Dataset Released**: We have released our human-annotated RACE evaluation dataset on [Hugging Face](https://huggingface.co/datasets/muset-ai/DeepResearch-Bench-Dataset). This dataset provides valuable ground truth for **LLM-as-judge** research. We welcome researchers to leverage this data to explore and improve the alignment between LLM evaluations and human judgments.
-
-+ [14 Nov 2025] 🎉 **Major Leaderboard Update**: We are excited to announce two new top-performing systems on DeepResearch Bench! [CellCog.ai](https://www.cellcog.ai) now leads the leaderboard at **1st place**, and [Salesforce Enterprise Deep Research](https://github.com/SalesforceAIResearch/enterprise-deep-research) secures **2nd place**, both surpassing all previous benchmarks. These results showcase advances in deep research agent capabilities. Check out the full rankings and detailed comparisons on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [3 Aug 2025] 🚀 We reproduced and evaluated [LangChain-Open-Deep-Research](https://github.com/langchain-ai/open_deep_research) (with GPT-4.1 + Tavily) as the first open-source framework evaluated on DeepResearch Bench, achieving 6th place among all deep research agents. This evaluation was conducted in collaboration with LangChain partners. Additionally, we partnered with [Nvidia-AIQ-Research](https://github.com/NVIDIA-AI-Blueprints/aiq-research-assistant) to evaluate their deep research solution. Updated results with new leaderboard visualization are now available. All detailed rankings and raw data are synchronized on our [Hugging Face Leaderboard](https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard). 
   
-  **If you want to evaluate your deep research agent** Contact us at dumingxuan@mail.ustc.edu.cn to get official leaderboard ranking on DeepResearch Bench.
+  **If you want to evaluate your deep research agent** please see the leaderboard submission requirements below and contact us at dumingxuan@mail.ustc.edu.cn and imlrz@mail.ustc.edu.cn.
 + [18 July 2025] 🎉 We have established a partnership with **AGI-Eval** platform. DeepResearch Bench is now available on [**AGI-Eval**](https://agi-eval.cn/evaluation/detail?id=67), providing a more convenient evaluation interface for researchers and practitioners to test their deep research agents.
 + [15 July 2025] ⚡️⚡️ **Major Update**: Added comprehensive evaluation of **Kimi-Researcher**, **Doubao-DeepResearch**, and **Claude-Researcher**. Upgraded evaluation infrastructure with **Gemini-2.5-Pro** for RACE and **Gemini-2.5-Flash** for FACT evaluation. All raw research articles and evaluation scores are now available on our [**Hugging Face Leaderboard**](https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard) for comprehensive analysis and comparison.
 
@@ -141,6 +109,45 @@ FACT evaluates **information retrieval and grounding capabilities** through:
 ### Main Results
 
 **View Latest Leaderboard**: Visit our [**DeepResearch Bench Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard) for real-time updated evaluation results, detailed comparative analysis, and raw data.
+
+### Submit to Leaderboard
+
+If you would like to obtain an **official leaderboard entry** on DeepResearch Bench, please prepare the following materials and send them by email to:
+
+- `dumingxuan@mail.ustc.edu.cn`
+- `imlrz@mail.ustc.edu.cn`
+
+**Required submission materials:**
+
+1. **A temporary key with access to Gemini-2.5-Pro**
+   - This key is used only for verification/evaluation.
+   - It should remain valid during the evaluation window.
+   - Supported examples include:
+     - Google AI Studio
+     - Vertex AI
+     - OpenRouter
+     - Other official providers with Gemini-2.5-Pro access
+
+2. **The raw generated articles**
+   - Please provide your model outputs in the same format as the benchmark raw data.
+   - Reference example:
+     - [`data/test_data/raw_data/claude-3-7-sonnet-latest.jsonl`](https://github.com/Ayanami0730/deep_research_bench/blob/main/data/test_data/raw_data/claude-3-7-sonnet-latest.jsonl)
+
+3. **Reproducibility link**
+   - If your model/agent is **open-source**, please provide a repository link that allows others to reproduce the results.
+   - If your model/agent is **closed-source**, please provide the product page and/or API link used for reproduction and verification.
+
+4. **Model metadata**
+   - **Model name**
+   - **Model/project link**
+   - **Open-source license** (for open-source submissions; if closed-source, please clearly indicate that it is proprietary)
+
+**Recommended additional files:**
+
+- `results/race/<model_name>/race_result.txt`
+- `results/fact/<model_name>/fact_result.txt`
+
+Providing these files can help us speed up verification, but the raw generated reports and the temporary evaluation key are the most important requirements.
 
 ---
 
