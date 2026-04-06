@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [2 Apr 2026] 🎉 **New Model Added**: We welcome [**Grep.ai Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving an overall score of **56.09** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [2 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
   - 🥉 [**1688AILab-DeepResearch**](https://air.1688.com/kapp/1688-ai-app/pages/home) — a proprietary deep research agent, achieving **#3** with an overall score of **55.39**.
   - [**TrajectoryKit (GPT-OSS, GPT5.4)**](https://github.com/KabakaWilliam/trajectorykit) — an open-source deep research agent (MIT license), achieving an overall score of **54.92**.
