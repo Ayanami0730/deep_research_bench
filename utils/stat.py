@@ -34,7 +34,11 @@ if __name__ == "__main__":
 
 
 
-    with open(args.output_path, 'w') as f:
-        f.write(f'total_citations: {total_citations/total_num}\n')
-        f.write(f'total_valid_citations: {total_valid_citations/total_num}\n')
-        f.write(f'valid_rate: {total_valid_citations / total_citations}\n')
+    avg_total_citations = (total_citations / total_num) if total_num else 0.0
+    avg_total_valid_citations = (total_valid_citations / total_num) if total_num else 0.0
+    valid_rate = (total_valid_citations / total_citations) if total_citations else 0.0
+
+    with open(args.output_path, 'w', encoding='utf-8') as f:
+        f.write(f'total_citations: {avg_total_citations}\n')
+        f.write(f'total_valid_citations: {avg_total_valid_citations}\n')
+        f.write(f'valid_rate: {valid_rate}\n')

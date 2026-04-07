@@ -2,6 +2,7 @@ import multiprocessing
 import json
 import os
 import argparse
+import platform
 from functools import partial
 from .io_utils import load_jsonl
 from .api import call_model
@@ -120,7 +121,14 @@ def run(data, output_path, id_to_lang_map):
 
 if __name__ == '__main__':
 
-    multiprocessing.set_start_method('fork')
+    if platform.system() in {"Windows", "Darwin"}:
+        method = "spawn"
+    else:
+        method = "fork"
+    try:
+        multiprocessing.set_start_method(method)
+    except RuntimeError:
+        pass
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--output_path", type=str, required=True)

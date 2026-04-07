@@ -142,7 +142,7 @@ def validate(data, id_to_lang_map):
 
 
 if __name__ == '__main__':
-    if platform.system() == 'Darwin':  
+    if platform.system() in {'Darwin', 'Windows'}:
         try:
             multiprocessing.set_start_method('spawn')
         except RuntimeError:
