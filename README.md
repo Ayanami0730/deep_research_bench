@@ -15,7 +15,7 @@
 # ✨ News
 + [13 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
   - 🥇 [**Grep Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving **#1** with an overall score of **56.23**.
-  - [**MindDR 1.5**](https://apps.apple.com/cn/app/%E7%90%86%E6%83%B3%E5%90%8C%E5%AD%A6/id6496130008) — a proprietary deep research agent by 理想汽车, achieving an overall score of **52.54**.
+  - [**LiAuto Mind DeepResearch 1.5**](https://www.lixiang.com/tech/mindgpt) — a proprietary deep research agent by 理想汽车, achieving an overall score of **52.54**.
   
   Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
