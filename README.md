@@ -13,6 +13,12 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [13 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
+  - 🥇 [**Grep Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving **#1** with an overall score of **56.23**.
+  - [**MindDR 1.5**](https://apps.apple.com/cn/app/%E7%90%86%E6%83%B3%E5%90%8C%E5%AD%A6/id6496130008) — a proprietary deep research agent by 理想汽车, achieving an overall score of **52.54**.
+  
+  Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [9 Apr 2026] 🎉 **New Model Added**: We welcome [**MS-Agent Agentic Insight v2（Qwen3.5-Plus、GPT 5.2）**](https://github.com/modelscope/ms-agent) — an open-source deep research agent (Apache-2.0 license), achieving an overall score of **55.31**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [2 Apr 2026] 🎉 **New Model Added**: We welcome [**Grep.ai Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving an overall score of **56.09** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
