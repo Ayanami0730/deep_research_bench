@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Deep Dog 1**](https://github.com/beneadie/DeepDog_1) — an open-source deep research agent (MIT license), achieving an overall score of **53.52**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [13 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
   - 🥇 [**Grep Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving **#1** with an overall score of **56.23**.
   - [**LiAuto Mind DeepResearch 1.5**](https://www.lixiang.com/tech/mindgpt) — a proprietary deep research agent by 理想汽车, achieving an overall score of **52.54**.
