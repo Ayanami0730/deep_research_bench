@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Xiaoyi DeepResearch**](https://xiaoyi.huawei.com/chat/research) — a proprietary deep research agent, achieving an overall score of **57.00** and ranking **#1** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Deep Dog 1**](https://github.com/beneadie/DeepDog_1) — an open-source deep research agent (MIT license), achieving an overall score of **53.52**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [13 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
