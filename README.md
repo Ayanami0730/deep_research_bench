@@ -13,6 +13,17 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [24 Apr 2026] 📢 **Evaluation Model Migration Notice**:
+
+  > **⚠️ Google has announced that Gemini-2.5-Pro will be deprecated on June 17, 2026** ([details](https://ai.google.dev/gemini-api/docs/deprecations)). We are planning the migration of our evaluation model accordingly:
+  >
+  > - **Before May**: We will run comparison experiments to evaluate the alignment between several next-generation models and human judgments, and select the model with the highest alignment as the new official evaluator.
+  > - **First week of May**: We will announce the new official evaluation model.
+  > - **May**: During May, we will accept both Gemini-2.5-Pro scores and new-model scores. We will gradually re-evaluate previous submissions and migrate them to the new leaderboard. Scores from different evaluation models will be displayed and ranked on separate leaderboards.
+  > - **June**: We will stop accepting Gemini-2.5-Pro evaluation results, deprecate the old leaderboard rankings, and fully switch to the new evaluation-model leaderboard.
+  >
+  > Before the new evaluator is officially announced, we **continue to accept Gemini-2.5-Pro-based evaluation results** as before.
+
 + [16 Apr 2026] 🎉 **Model Updated**: [**Cellcog Max**](https://www.cellcog.ai/) has submitted updated results, achieving an overall score of **56.67** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Xiaoyi DeepResearch**](https://xiaoyi.huawei.com/chat/research) — a proprietary deep research agent, achieving an overall score of **57.00** and ranking **#1** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
