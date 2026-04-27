@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [27 Apr 2026] 🎉 **New Model Added**: We welcome [**LINK-Researcher**](https://nju-link.github.io/LINK-Researcher/) — a deep research agent by NJU&Alibaba, achieving an overall score of **56.04**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [24 Apr 2026] 📢 **Evaluation Model Migration Notice**:
 
   > **⚠️ Google has announced that Gemini-2.5-Pro will be deprecated on June 17, 2026** ([details](https://ai.google.dev/gemini-api/docs/deprecations)). We are planning the migration of our evaluation model accordingly:
