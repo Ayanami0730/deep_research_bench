@@ -17,8 +17,8 @@ logging.getLogger('httpx').setLevel(logging.WARNING)
 # Read API keys from environment variables
 API_KEY = os.environ.get("GEMINI_API_KEY", "")
 READ_API_KEY = os.environ.get("JINA_API_KEY", "")
-FACT_Model = "gemini-2.5-flash-preview-05-20"
-Model = "gemini-2.5-pro-preview-06-05"
+FACT_Model = "gemini-2.5-flash"
+Model = "gemini-2.5-pro"
 
 class AIClient:
     
