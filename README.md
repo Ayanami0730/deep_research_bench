@@ -13,6 +13,10 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [7 May 2026] 🎉 **New Model Added**: We welcome [**Zhipu Deep Research**](https://research-hb.zhipuai-infra.cn/) — a proprietary deep research system, achieving an overall score of **57.06** and ranking **#1** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
++ [7 May 2026] 🎉 **Model Updated**: [**1688AILab-DeepResearch**](https://air.1688.com/kapp/1688-ai-app/pages/home) has submitted updated results (0428 version), achieving an overall score of **56.53**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+
 + [27 Apr 2026] 🎉 **New Model Added**: We welcome [**LINK-Researcher**](https://nju-link.github.io/LINK-Researcher/) — a deep research agent by NJU&Alibaba, achieving an overall score of **56.04**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
 
 + [24 Apr 2026] 📢 **Evaluation Model Migration Notice**:
