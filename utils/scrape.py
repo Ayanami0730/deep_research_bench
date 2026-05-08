@@ -32,37 +32,22 @@ def scrape(citation_url):
     return {
         'url': citation_url,
         'url_content': url_content
-    } 
+    }
 
 
-if __name__ == '__main__':
-    if platform.system() == 'Darwin':  
-        try:
-            multiprocessing.set_start_method('spawn')
-        except RuntimeError:
-            pass
-    else: 
-        try:
-            multiprocessing.set_start_method('fork')
-        except RuntimeError:
-            pass
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output_path", type=str, required=True)
-    parser.add_argument("--raw_data_path", type=str, required=True)
-    parser.add_argument("--n_total_process", type=int, default=1)
-    args = parser.parse_args()
-    
-    output_path = args.output_path
-    
+def scrape_all(
+        output_path: str,
+        raw_data_path: str,
+        n_total_process: int
+) -> None:
     # initialize variables
     raw_data = []
     data_to_process = []
     processed = []
-    
+
     try:
-        raw_data = load_jsonl(args.raw_data_path)
-        
+        raw_data = load_jsonl(raw_data_path)
+
         if os.path.exists(output_path):
             processed = [d['id'] for d in load_jsonl(output_path)]
             data_to_process = [d for d in raw_data if d['id'] not in processed]
@@ -70,23 +55,26 @@ if __name__ == '__main__':
             data_to_process = raw_data
     except:
         import sys
-        print(f"cannot process file {args.raw_data_path}")
-        sys.exit(f'{args.raw_data_path} has not been processed yet...')
-    
+        print(f"cannot process file {raw_data_path}")
+        sys.exit(f'{raw_data_path} has not been processed yet...')
+
     print(f"processing {len(data_to_process)} instances...")
 
     for d in tqdm(data_to_process):
         # get the citations that need to be scraped
-        citations = list([k for k, v in d['citations_deduped'].items() if 'url_content' not in v or not v['url_content']])
+        citations = [
+            k for k, v in d['citations_deduped'].items()
+            if 'url_content' not in v or not v['url_content']
+        ]
         results = []
 
-        n_total_process = min(args.n_total_process, len(citations))
+        n_proc = min(n_total_process, len(citations))
 
-        if n_total_process == 1:
+        if n_proc == 1:
             results = [scrape(citation) for citation in citations]
-        elif n_total_process > 1:
+        elif n_proc > 1:
             try:
-                with multiprocessing.Pool(processes=n_total_process) as pool:
+                with multiprocessing.Pool(processes=n_proc) as pool:
                     results = pool.map(scrape, citations)
             except KeyboardInterrupt:
                 print("scrape process interrupted")
@@ -103,3 +91,28 @@ if __name__ == '__main__':
         # write the updated data to the output file
         with open(output_path, 'a+', encoding='utf-8') as f:
             f.write(json.dumps(d, ensure_ascii=False) + "\n")
+
+
+if __name__ == '__main__':
+    if platform.system() == 'Darwin':
+        try:
+            multiprocessing.set_start_method('spawn')
+        except RuntimeError:
+            pass
+    else:
+        try:
+            multiprocessing.set_start_method('fork')
+        except RuntimeError:
+            pass
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--raw_data_path", type=str, required=True)
+    parser.add_argument("--n_total_process", type=int, default=1)
+    args = parser.parse_args()
+
+    scrape_all(
+        output_path=args.output_path,
+        raw_data_path=args.raw_data_path,
+        n_total_process=args.n_total_process,
+    )

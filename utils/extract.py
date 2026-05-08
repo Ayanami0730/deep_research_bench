@@ -152,30 +152,32 @@ def run(data, output_path, id_to_lang_map):
             print(f">>>>>>>>>> All attempts failed, article ID: {article_id}, cannot extract citations")
 
 
-if __name__ == '__main__':
-
-    multiprocessing.set_start_method('fork')
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--output_path", type=str, required=True)
-    parser.add_argument("--raw_data_path", type=str, required=True)
-    parser.add_argument("--query_data_path", type=str, required=True, help="Path to query data with language information")
-    parser.add_argument("--n_total_process", type=int, default=1)
-    args = parser.parse_args()
-
-    output_path = args.output_path
-    
+def extract_all(
+        output_path: str,
+        raw_data_path: str,
+        query_data_path: str,
+        n_total_process: int,
+        limit: int
+) -> list:
     # Load the query data to get language information
-    query_data = load_jsonl(args.query_data_path)
-    
+    query_data = load_jsonl(query_data_path)
+
     # Create a mapping from ID to language
-    id_to_lang_map = {item['id']: item.get('language') for item in query_data if 'id' in item and 'language' in item}
-    
+    id_to_lang_map = {
+        item['id']: item.get('language')
+        for item in query_data
+        if 'id' in item and 'language' in item
+    }
+
     if not id_to_lang_map:
         raise ValueError("No valid language information found in query data")
-    
+
     # Load the raw data
-    raw_data = load_jsonl(args.raw_data_path)
+    raw_data = load_jsonl(raw_data_path)
+
+    # Apply limit if specified
+    if limit:
+        raw_data = raw_data[:limit]
 
     # If the output file exists, load the processed ids and filter out the processed instances
     if os.path.exists(output_path):
@@ -186,18 +188,43 @@ if __name__ == '__main__':
 
     # OpenAI deep research will add webpage snippets to the citations.
     # For fair comparison, we remove these snippets
-    if 'openai' in args.raw_data_path:
+    if 'openai' in raw_data_path:
         for d in data_to_process:
             d['article'] = clean_urls(d['article'])
 
     print(f"Processing {len(data_to_process)} instances...")
 
-    n_total_process = args.n_total_process
     if n_total_process == 1:
         run(data_to_process, output_path, id_to_lang_map)
     elif n_total_process > 1:
         part_size = (len(data_to_process) + n_total_process - 1) // n_total_process
-        data_splits = [data_to_process[i * part_size : (i + 1) * part_size] for i in range(n_total_process)]
+        data_splits = [
+            data_to_process[i * part_size: (i + 1) * part_size]
+            for i in range(n_total_process)
+        ]
         run_partial = partial(run, output_path=output_path, id_to_lang_map=id_to_lang_map)
         with multiprocessing.Pool(processes=n_total_process) as pool:
             results = pool.map(run_partial, data_splits)
+
+    return results
+
+
+if __name__ == '__main__':
+    multiprocessing.set_start_method('fork')
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output_path", type=str, required=True)
+    parser.add_argument("--raw_data_path", type=str, required=True)
+    parser.add_argument("--query_data_path", type=str, required=True,
+                        help="Path to query data with language information")
+    parser.add_argument("--n_total_process", type=int, default=1)
+    parser.add_argument('--limit', type=int, default=None, help='Limit on number of prompts to process (for testing).')
+    args = parser.parse_args()
+
+    extract_all(
+        output_path=args.output_path,
+        raw_data_path=args.raw_data_path,
+        query_data_path=args.query_data_path,
+        n_total_process=args.n_total_process,
+        limit=args.limit
+    )
