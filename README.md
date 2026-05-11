@@ -13,56 +13,21 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
-+ [7 May 2026] 🎉 **New Model Added**: We welcome [**Zhipu Deep Research**](https://research-hb.zhipuai-infra.cn/) — a proprietary deep research system, achieving an overall score of **57.06** and ranking **#1** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
++ [11 May 2026] 🎯 **Official Evaluator Switched to GPT-5.5**: Following Google's announced June 17, 2026 deprecation of Gemini-2.5-Pro, we benchmarked three frontier reasoning models as candidate replacements on the human-annotated subset (50 tasks × 4 target DRAs = 200 articles), measuring each candidate's alignment with human judgments (human inter-annotator agreement baseline = **68.78%**). All three candidates exceed this baseline by 1.3–3 points; **GPT-5.5 wins on Overall, PAR, and FAS**. We are adopting it as the new RACE evaluator (with **GPT-5.4-mini** for the FACT pipeline). Scores:
 
-+ [7 May 2026] 🎉 **Model Updated**: [**1688AILab-DeepResearch**](https://air.1688.com/kapp/1688-ai-app/pages/home) has submitted updated results (0428 version), achieving an overall score of **56.53**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
+  | Candidate evaluator | Overall ↑ | PAR | OPC | FAP | FAS |
+  |---|---|---|---|---|---|
+  | **GPT-5.5** 🥇 | **71.82** | **73.00** | 89.70 | 65.35 | **59.23** |
+  | Gemini-3.1-Pro | 70.58 | 71.33 | **90.14** | 65.39 | 55.45 |
+  | Claude-Opus-4-7 | 70.11 | 71.00 | 86.76 | **66.70** | 55.99 |
 
-+ [27 Apr 2026] 🎉 **New Model Added**: We welcome [**LINK-Researcher**](https://nju-link.github.io/LINK-Researcher/) — a deep research agent by NJU&Alibaba, achieving an overall score of **56.04**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
++ [11 May 2026] 📢 **Leaderboard Migration Plan**:
 
-+ [24 Apr 2026] 📢 **Evaluation Model Migration Notice**:
+  > - **Now – 31 May 2026 (dual-acceptance window)**: We accept submissions evaluated under **both** the legacy evaluator (Gemini-2.5-Pro) **and** the new one (GPT-5.5). Results are displayed on **two separate leaderboards** so the rankings remain directly comparable within each evaluator.
+  > - **By 1 June 2026 (full migration)**: For the results reported in the original DRB paper, we will re-evaluate them under GPT-5.5 and migrate them to the new leaderboard automatically. For prior community submissions evaluated under Gemini-2.5-Pro, if you would like to keep your entry on the new leaderboard, please contact us per [Submit to Leaderboard](#submit-to-leaderboard) and re-submit following the updated requirements. New submitters: follow the keys / config in [API Configuration](#api-configuration) below. After 1 June, Gemini-2.5-Pro acceptance ends and only the GPT-5.5 leaderboard is maintained going forward.
+  > - **GPT-5.5 leaderboard status**: still under construction — expected to launch within a week, alongside the migrated scores.
 
-  > **⚠️ Google has announced that Gemini-2.5-Pro will be deprecated on June 17, 2026** ([details](https://ai.google.dev/gemini-api/docs/deprecations)). We are planning the migration of our evaluation model accordingly:
-  >
-  > - **Before May**: We will run comparison experiments to evaluate the alignment between several next-generation models and human judgments, and select the model with the highest alignment as the new official evaluator.
-  > - **First week of May**: We will announce the new official evaluation model.
-  > - **May**: During May, we will accept both Gemini-2.5-Pro scores and new-model scores. We will gradually re-evaluate previous submissions and migrate them to the new leaderboard. Scores from different evaluation models will be displayed and ranked on separate leaderboards.
-  > - **June**: We will stop accepting Gemini-2.5-Pro evaluation results, deprecate the old leaderboard rankings, and fully switch to the new evaluation-model leaderboard.
-  >
-  > Before the new evaluator is officially announced, we **continue to accept Gemini-2.5-Pro-based evaluation results** as before.
-
-+ [16 Apr 2026] 🎉 **Model Updated**: [**Cellcog Max**](https://www.cellcog.ai/) has submitted updated results, achieving an overall score of **56.67** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Xiaoyi DeepResearch**](https://xiaoyi.huawei.com/chat/research) — a proprietary deep research agent, achieving an overall score of **57.00** and ranking **#1** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [16 Apr 2026] 🎉 **New Model Added**: We welcome [**Deep Dog 1**](https://github.com/beneadie/DeepDog_1) — an open-source deep research agent (MIT license), achieving an overall score of **53.52**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [13 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
-  - 🥇 [**Grep Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving **#1** with an overall score of **56.23**.
-  - [**LiAuto Mind DeepResearch 1.5**](https://www.lixiang.com/tech/mindgpt) — a proprietary deep research agent by 理想汽车, achieving an overall score of **52.54**.
-  
-  Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [9 Apr 2026] 🎉 **New Model Added**: We welcome [**MS-Agent Agentic Insight v2（Qwen3.5-Plus、GPT 5.2）**](https://github.com/modelscope/ms-agent) — an open-source deep research agent (Apache-2.0 license), achieving an overall score of **55.31**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [2 Apr 2026] 🎉 **New Model Added**: We welcome [**Grep.ai Deep Research**](https://grep.ai) — a proprietary deep research agent, achieving an overall score of **56.09** and ranking **#2** on the leaderboard! Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [2 Apr 2026] 🎉 **New Models Added**: We welcome two new models to DeepResearch Bench:
-  - 🥉 [**1688AILab-DeepResearch**](https://air.1688.com/kapp/1688-ai-app/pages/home) — a proprietary deep research agent, achieving **#3** with an overall score of **55.39**.
-  - [**TrajectoryKit (GPT-OSS, GPT5.4)**](https://github.com/KabakaWilliam/trajectorykit) — an open-source deep research agent (MIT license), achieving an overall score of **54.92**.
-  
-  Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [31 Mar 2026] 📝 **Leaderboard Submission Update**: We have clarified the official leaderboard submission requirements in the README. Submissions should now include a temporary **Gemini-2.5-Pro** accessible key, the **raw generated reports**, reproducibility links (repository or product/API link), and model metadata such as **model name, link, and open-source license**. Please contact **dumingxuan@mail.ustc.edu.cn** and **imlrz@mail.ustc.edu.cn** for submission, and see [**Submit to Leaderboard**](#submit-to-leaderboard) for details.
-
-+ [25 Mar 2026] 🎉 **New Model Added**: We welcome [**MS-Agent Agentic Insight v2（Qwen3.5-Plus、GPT 5）**](https://github.com/modelscope/ms-agent) — an open-source deep research agent (Apache-2.0 license), achieving an overall score of **54.97**. Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
-+ [20 Mar 2026] 🎉 **New Models Added**: We welcome three new models to DeepResearch Bench:
-  - 🥇 [**Cellcog Max**](https://www.cellcog.ai/) — a proprietary deep research agent, achieves **#1** with an overall score of **56.13**!
-  - 🥉 [**Cellcog**](https://www.cellcog.ai/) — a proprietary deep research agent, achieves **#3** with an overall score of **55.31**.
-  - [**RecallRadar Intelligence**](https://getrecallradar.com) — a proprietary deep research agent, achieving an overall score of **53.19**.
-  
-  Check out the updated rankings on our [**Leaderboard**](https://huggingface.co/spaces/muset-ai/DeepResearch-Bench-Leaderboard).
-
++ [11 May 2026] 🔧 **Evaluation Pipeline v2**: In the new release we have refined the article-cleaning logic, using a chunk-based strategy to better support very long articles.
 
 + [6 Feb 2026] 🚀 **DeepResearch Bench II Release**: We have released **DeepResearch Bench II (DRB II)** ([homepage](https://agentresearchlab.org/benchmarks/deepresearch-bench-ii/index.html#home)｜[repo](https://github.com/imlrz/DeepResearch-Bench-II)｜[paper](https://arxiv.org/abs/2601.08536)). We welcome you to evaluate and exchange ideas. Note that DRB II, as a follow-up to DRB, has a different evaluation focus from DRB; **DRB will continue to be maintained and updated** after the release of DRB II. For more details, please refer to the [DRB II paper](https://arxiv.org/abs/2601.08536).
 
@@ -74,10 +39,10 @@
   - **Agents**:
     - [A-RAG](https://arxiv.org/abs/2602.03442): An agentic RAG framework that exposes hierarchical retrieval interfaces (keyword search, semantic search, chunk read) to the model for adaptive multi-granularity retrieval.
     - [FS-Researcher](https://arxiv.org/abs/2602.01566): A file-system-based dual-agent framework (Context Builder + Report Writer) that scales deep research beyond the context window via a persistent knowledge base.
-  
+
   **If you want to evaluate your deep research agent** please see the leaderboard submission requirements below and contact us at dumingxuan@mail.ustc.edu.cn and imlrz@mail.ustc.edu.cn.
 + [18 July 2025] 🎉 We have established a partnership with **AGI-Eval** platform. DeepResearch Bench is now available on [**AGI-Eval**](https://agi-eval.cn/evaluation/detail?id=67), providing a more convenient evaluation interface for researchers and practitioners to test their deep research agents.
-+ [15 July 2025] ⚡️⚡️ **Major Update**: Added comprehensive evaluation of **Kimi-Researcher**, **Doubao-DeepResearch**, and **Claude-Researcher**. Upgraded evaluation infrastructure with **Gemini-2.5-Pro** for RACE and **Gemini-2.5-Flash** for FACT evaluation. All raw research articles and evaluation scores are now available on our [**Hugging Face Leaderboard**](https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard) for comprehensive analysis and comparison.
++ [15 July 2025] ⚡️⚡️ **Major Update**: Added comprehensive evaluation of **Kimi-Researcher**, **Doubao-DeepResearch**, and **Claude-Researcher**. Upgraded evaluation infrastructure with **Gemini-2.5-Pro** for RACE and **Gemini-2.5-Flash** for FACT evaluation (since superseded — see top of News). All raw research articles and evaluation scores are now available on our [**Hugging Face Leaderboard**](https://huggingface.co/spaces/Ayanami0730/DeepResearch-Leaderboard) for comprehensive analysis and comparison.
 
 For detailed evaluation results and comprehensive comparisons, please refer to the evaluation results table below.
 
@@ -158,14 +123,14 @@ If you would like to obtain an **official leaderboard entry** on DeepResearch Be
 
 **Required submission materials:**
 
-1. **A temporary key with access to Gemini-2.5-Pro**
+1. **A temporary key with access to GPT-5.5**
    - This key is used only for verification/evaluation.
    - It should remain valid during the evaluation window.
    - Supported examples include:
      - Google AI Studio
      - Vertex AI
      - OpenRouter
-     - Other official providers with Gemini-2.5-Pro access
+     - Other official providers with GPT-5.5 access
 
 2. **The raw generated articles**
    - Please provide your model outputs in the same format as the benchmark raw data.
@@ -195,7 +160,7 @@ Providing these files can help us speed up verification, but the raw generated r
 ### Prerequisites
 
 - Python 3.9+
-- Gemini API key (for LLM evaluation)
+- OpenRouter or OpenAI API key (for LLM evaluation)
 - Jina API key (for web scraping in FACT evaluation)
 
 ### Setup
@@ -211,12 +176,26 @@ pip install -r requirements.txt
 Set the required API keys as environment variables:
 
 ```bash
-# Set Gemini API key for LLM evaluation
-export GEMINI_API_KEY="your_gemini_api_key_here"
+# Pick one backend. OpenRouter is the default.
+export LLM_BACKEND="openrouter"               # or "openai"
 
-# Set Jina API key for web scraping
+# OpenRouter (default):
+export OPENROUTER_API_KEY="sk-or-v1-xxxxx"
+
+# Or OpenAI direct:
+# export LLM_BACKEND="openai"
+# export OPENAI_API_KEY="sk-xxxxx"
+
+# Set Jina API key for web scraping (FACT pipeline only)
 export JINA_API_KEY="your_jina_api_key_here"
 ```
+
+Default models per backend (override with `RACE_MODEL` / `FACT_MODEL` env vars):
+
+| Backend | RACE judge (`Model`) | FACT judge (`FACT_Model`) |
+|---|---|---|
+| openrouter | `openai/gpt-5.5` | `openai/gpt-5.4-mini` |
+| openai     | `gpt-5.5`        | `gpt-5.4-mini`        |
 
 
 ## Project Structure
@@ -281,7 +260,7 @@ Results will be saved to:
 
 ### Custom LLM Integration
 
-If you're not using the official Gemini API or want to use other LLMs for evaluation, modify the `AIClient` class in `utils/api.py` to implement your custom LLM interface.
+If you're not using OpenRouter or the official OpenAI API, or want to use other LLMs for evaluation, modify the `AIClient` class in `utils/api.py` to implement your custom LLM interface.
 
 ## Acknowledgements
 
