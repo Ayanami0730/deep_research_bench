@@ -26,6 +26,7 @@
   > - **Now – 31 May 2026 (dual-acceptance window)**: We accept submissions evaluated under **both** the legacy evaluator (Gemini-2.5-Pro) **and** the new one (GPT-5.5). Results are displayed on **two separate leaderboards** so the rankings remain directly comparable within each evaluator.
   > - **By 1 June 2026 (full migration)**: For the results reported in the original DRB paper, we will re-evaluate them under GPT-5.5 and migrate them to the new leaderboard automatically. For prior community submissions evaluated under Gemini-2.5-Pro, if you would like to keep your entry on the new leaderboard, please contact us per [Submit to Leaderboard](#submit-to-leaderboard) and re-submit following the updated requirements. New submitters: follow the keys / config in [API Configuration](#api-configuration) below. After 1 June, Gemini-2.5-Pro acceptance ends and only the GPT-5.5 leaderboard is maintained going forward.
   > - **GPT-5.5 leaderboard status**: still under construction — expected to launch within a week, alongside the migrated scores.
+  > - **Legacy code**: the previous Gemini-2.5-Pro / Gemini-2.5-Flash evaluation code is preserved on the [`Gemini-2.5`](https://github.com/Ayanami0730/deep_research_bench/tree/Gemini-2.5) branch.
 
 + [11 May 2026] 🔧 **Evaluation Pipeline v2**: In the new release we have refined the article-cleaning logic, using a chunk-based strategy to better support very long articles.
 
