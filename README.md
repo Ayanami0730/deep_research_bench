@@ -126,11 +126,9 @@ If you would like to obtain an **official leaderboard entry** on DeepResearch Be
 1. **A temporary key with access to GPT-5.5**
    - This key is used only for verification/evaluation.
    - It should remain valid during the evaluation window.
-   - Supported examples include:
-     - Google AI Studio
-     - Vertex AI
+   - Supported providers:
+     - OpenAI (official)
      - OpenRouter
-     - Other official providers with GPT-5.5 access
 
 2. **The raw generated articles**
    - Please provide your model outputs in the same format as the benchmark raw data.
