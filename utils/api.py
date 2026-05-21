@@ -1,4 +1,4 @@
-"""OpenAI / OpenRouter backed LLM client for DRB-GPT5.
+"""OpenAI / OpenRouter / LiteLLM backed LLM client for DRB-GPT5.
 
 Drop-in replacement for the original google.genai-based client. Exposes the
 same surface (`AIClient`, `call_model`, `scrape_url`, `Model`, `FACT_Model`)
@@ -19,8 +19,14 @@ Backend selection via env `LLM_BACKEND`:
     RACE_MODEL           (default: gpt-5.5)
     FACT_MODEL           (default: gpt-5.4-mini)
 
-The three stages — 'clean' (chunk cleaning), 'score' (RACE scoring), 'fact'
-(FACT citation extraction) — map to different `reasoning_effort` values.
+  litellm:
+    Provider-specific API key via env var (e.g. ANTHROPIC_API_KEY,
+    GEMINI_API_KEY) or LITELLM_API_KEY for a proxy.
+    RACE_MODEL           (default: anthropic/claude-sonnet-4-6)
+    FACT_MODEL           (default: anthropic/claude-sonnet-4-6)
+
+The three stages -- 'clean' (chunk cleaning), 'score' (RACE scoring), 'fact'
+(FACT citation extraction) -- map to different `reasoning_effort` values.
 Sampling params (temperature/top_p) are intentionally unset; gpt-5.x
 reasoning models reject non-default values anyway.
 """
@@ -28,6 +34,9 @@ import os
 from typing import Optional, Dict, Any, Tuple, Union
 import requests
 import logging
+
+if os.environ.get("LLM_BACKEND", "openrouter").lower() == "litellm":
+    import litellm
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -52,6 +61,12 @@ _BACKEND_DEFAULTS = {
         "key_env":  "OPENAI_API_KEY",
         "race":     "gpt-5.5",
         "fact":     "gpt-5.4-mini",
+    },
+    "litellm": {
+        "base_url": "",
+        "key_env":  "LITELLM_API_KEY",
+        "race":     "anthropic/claude-sonnet-4-6",
+        "fact":     "anthropic/claude-sonnet-4-6",
     },
 }
 
@@ -117,7 +132,7 @@ class AIClient:
 
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or API_KEY
-        if not self.api_key:
+        if not self.api_key and LLM_BACKEND != "litellm":
             raise ValueError(
                 f"API key not provided! Set env {_KEY_ENV} for backend "
                 f"{LLM_BACKEND}."
@@ -166,9 +181,16 @@ class AIClient:
         model_to_use = model or self.model
         stage_cfg = _resolve_stage(stage)
 
+        messages = self._build_messages(user_prompt, system_prompt)
+
+        if LLM_BACKEND == "litellm":
+            return self._generate_litellm(
+                model_to_use, messages, stage_cfg, return_metadata,
+            )
+
         payload = {
             "model": model_to_use,
-            "messages": self._build_messages(user_prompt, system_prompt),
+            "messages": messages,
             "max_completion_tokens": MAX_OUTPUT_TOKENS,
             "reasoning_effort": stage_cfg["reasoning_effort"],
         }
@@ -184,6 +206,35 @@ class AIClient:
             stop_reason = choice.get("finish_reason", "stop")
         except (KeyError, IndexError, TypeError) as e:
             raise Exception(f"Malformed response from {LLM_BACKEND}: {data!r} ({e})")
+
+        if return_metadata:
+            return content, stop_reason
+        return content
+
+    def _generate_litellm(
+        self,
+        model: str,
+        messages: list,
+        stage_cfg: Dict[str, str],
+        return_metadata: bool,
+    ) -> Union[str, Tuple[str, str]]:
+        params: Dict[str, Any] = {
+            "model": model,
+            "messages": messages,
+            "max_completion_tokens": MAX_OUTPUT_TOKENS,
+            "drop_params": True,
+        }
+        if self.api_key:
+            params["api_key"] = self.api_key
+
+        try:
+            resp = litellm.completion(**params)
+        except Exception as e:
+            raise Exception(f"Failed to generate content: {e}")
+
+        choice = resp.choices[0]
+        content = choice.message.content or ""
+        stop_reason = choice.finish_reason or "stop"
 
         if return_metadata:
             return content, stop_reason
