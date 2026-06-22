@@ -159,6 +159,7 @@ Providing these files can help us speed up verification, but the raw generated r
 ### Prerequisites
 
 - Python 3.9+
+- **AskNews API key** — to generate DeepNews outputs (see [Generate outputs with AskNews DeepNews](#-generate-outputs-with-asknews-deepnews-this-fork))
 - OpenRouter or OpenAI API key (for LLM evaluation)
 - Jina API key (for web scraping in FACT evaluation)
 
@@ -167,7 +168,9 @@ Providing these files can help us speed up verification, but the raw generated r
 ```bash
 git clone https://github.com/your-username/deep_research_bench.git
 cd deep_research_bench
-pip install -r requirements.txt
+python -m venv env && source env/bin/activate
+pip install -r requirements.txt          # includes the AskNews SDK
+cp .env.example .env                      # then fill in your keys (.env is gitignored)
 ```
 
 ### API Configuration
@@ -197,6 +200,58 @@ Default models per backend (override with `RACE_MODEL` / `FACT_MODEL` env vars):
 | openai     | `gpt-5.5`        | `gpt-5.4-mini`        |
 
 
+## 🔍 Generate outputs with AskNews DeepNews (this fork)
+
+DeepResearch Bench is **bring-your-own-output** — it scores reports, it does not call your agent. This fork adds [`run_deepnews.py`](run_deepnews.py), a runner that executes the **AskNews DeepNews** agent over all 100 benchmark queries and writes the exact JSONL the benchmark expects (clean report body + inline citations, with the agent's reasoning/`<final_answer>` tags stripped). Design notes, cost estimates, and tuning guidance live in [`BENCHMARKING_DEEPNEWS.md`](BENCHMARKING_DEEPNEWS.md).
+
+### 1. Keys (`.env`)
+
+After `cp .env.example .env` (see [Setup](#setup)), fill in:
+
+| Key | Used by | Notes |
+|---|---|---|
+| `ASKNEWS_API_KEY` | generation | from your AskNews account |
+| `LLM_BACKEND` | evaluation | `openai` or `openrouter` |
+| `OPENAI_API_KEY` *or* `OPENROUTER_API_KEY` | evaluation | judge access (gpt-5.5 + gpt-5.4-mini) |
+| `JINA_API_KEY` | evaluation (FACT) | web scraping |
+
+### 2. Generate the reports
+
+`run_deepnews.py` auto-loads `.env`. Start with a cheap 2-task smoke test, then run the full set:
+
+```bash
+python run_deepnews.py --ids 1,51        # 1 zh + 1 en — sanity check the output
+python run_deepnews.py                    # all 100 (resumable: re-run to retry any failures)
+```
+
+Output is written to `data/test_data/raw_data/deepnews-<engine>-<model>-d<max_depth>.jsonl`. Common flags (run `python run_deepnews.py --help` for the full list):
+
+| Flag | Purpose |
+|---|---|
+| `--ids 1,5,42` | Run specific task ids |
+| `--limit N` / `--only-en` / `--only-zh` | Scope the task set |
+| `--model` / `--engine` / `--max-depth` | DeepNews config (higher depth = better quality, more cost/time) |
+| `--workers N` | Concurrent agent calls |
+| `--model-tag` | Override the output filename stem |
+
+### 3. Score the reports
+
+`TARGET_MODELS` in `run_benchmark.sh` is already set to the default tag (`deepnews-v1.5-claude-sonnet-4-6-d6`). Unlike the runner, `run_benchmark.sh` does **not** auto-load `.env`, so export the keys into your shell first:
+
+```bash
+set -a; source .env; set +a
+bash run_benchmark.sh
+```
+
+Results land in:
+- RACE: `results/race/<tag>/race_result.txt`
+- FACT: `results/fact/<tag>/fact_result.txt`
+
+> **Tip:** for a quick end-to-end check before the full run, uncomment `LIMIT="--limit 2"` in `run_benchmark.sh` (or `export LIMIT="--limit 2"`) to score just 2 tasks.
+
+> If you changed `--model`/`--engine`/`--max-depth` during generation, update `TARGET_MODELS` to match the new filename stem.
+
+
 ## Project Structure
 
 ```
@@ -211,6 +266,9 @@ deep_research_bench/
 ├── prompt/                 # Prompt templates
 ├── utils/                  # Utility functions
 ├── deepresearch_bench_race.py  # RACE evaluation script
+├── run_deepnews.py         # ← AskNews DeepNews runner (this fork) — generates raw_data
+├── BENCHMARKING_DEEPNEWS.md    # How the runner + benchmark fit together (design + costs)
+├── .env.example            # ← Copy to .env and fill in your keys
 ├── run_benchmark.sh        # ← Add your model names here, then run
 └── requirements.txt        # Dependencies
 ```
