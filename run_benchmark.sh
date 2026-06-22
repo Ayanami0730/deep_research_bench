@@ -1,6 +1,6 @@
 #!/bin/bash
-# Target model name list
-TARGET_MODELS=("claude-3-7-sonnet-latest")
+# Target model name list (the <tag> run_deepnews.py wrote to data/test_data/raw_data/<tag>.jsonl)
+TARGET_MODELS=("deepnews-v1.5-claude-sonnet-4-6-d6")
 
 # Common parameters for both RACE and Citation evaluations
 RAW_DATA_DIR="data/test_data/raw_data"
