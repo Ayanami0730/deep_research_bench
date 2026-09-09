@@ -189,12 +189,12 @@ export OPENROUTER_API_KEY="sk-or-v1-xxxxx"
 export JINA_API_KEY="your_jina_api_key_here"
 ```
 
-Default models per backend (override with `RACE_MODEL` / `FACT_MODEL` env vars):
+Default models per backend (override with `RACE_MODEL`, `CLEAN_MODEL`, and `FACT_MODEL` env vars):
 
-| Backend | RACE judge (`Model`) | FACT judge (`FACT_Model`) |
-|---|---|---|
-| openrouter | `openai/gpt-5.5` | `openai/gpt-5.4-mini` |
-| openai     | `gpt-5.5`        | `gpt-5.4-mini`        |
+| Backend | RACE judge (`Model`) | RACE cleaner (`CLEAN_Model`) | FACT judge (`FACT_Model`) |
+|---|---|---|---|
+| openrouter | `openai/gpt-5.5` | `openai/gpt-5.6-luna` | `openai/gpt-5.4-mini` |
+| openai     | `gpt-5.5` | `gpt-5.6-luna` | `gpt-5.4-mini` |
 
 
 ## Project Structure
@@ -280,4 +280,4 @@ If you use DeepResearch Bench in your research, please cite our paper:
   journal   = {arXiv preprint},
   year      = {2025},
 }
-``` 
+```

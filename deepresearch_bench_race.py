@@ -7,7 +7,7 @@ from tqdm import tqdm
 import logging
 import time
 import re 
-from utils.api import AIClient
+from utils.api import AIClient, CLEAN_Model
 from utils.io_utils import load_jsonl
 import glob
 
@@ -396,7 +396,7 @@ def main():
             existing_ids = set()
     
     llm_client = AIClient()
-    clean_agent = llm_client
+    clean_agent = AIClient(model=CLEAN_Model)
     
     all_results = list(existing_results)  # initialize with existing results
     
@@ -525,4 +525,4 @@ def main():
     logger.info("-------------------")
 
 if __name__ == "__main__":
-    main() 
+    main()

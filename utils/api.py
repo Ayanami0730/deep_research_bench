@@ -11,12 +11,14 @@ Backend selection via env `LLM_BACKEND`:
     OPENROUTER_API_KEY (required)
     OPENROUTER_BASE_URL  (default: https://openrouter.ai/api/v1)
     RACE_MODEL           (default: openai/gpt-5.5)
+    CLEAN_MODEL          (default: openai/gpt-5.6-luna)
     FACT_MODEL           (default: openai/gpt-5.4-mini)
 
   openai:
     OPENAI_API_KEY (required)
     OPENAI_BASE_URL      (default: https://api.openai.com/v1)
     RACE_MODEL           (default: gpt-5.5)
+    CLEAN_MODEL          (default: gpt-5.6-luna)
     FACT_MODEL           (default: gpt-5.4-mini)
 
 The three stages — 'clean' (chunk cleaning), 'score' (RACE scoring), 'fact'
@@ -45,12 +47,14 @@ _BACKEND_DEFAULTS = {
         "base_url": "https://openrouter.ai/api/v1",
         "key_env":  "OPENROUTER_API_KEY",
         "race":     "openai/gpt-5.5",
+        "clean":    "openai/gpt-5.6-luna",
         "fact":     "openai/gpt-5.4-mini",
     },
     "openai": {
         "base_url": "https://api.openai.com/v1",
         "key_env":  "OPENAI_API_KEY",
         "race":     "gpt-5.5",
+        "clean":    "gpt-5.6-luna",
         "fact":     "gpt-5.4-mini",
     },
 }
@@ -72,6 +76,7 @@ API_KEY = os.environ.get(_KEY_ENV, "")
 # Public module-level model identifiers — kept under the same names as the
 # original Gemini-era code so downstream imports don't break.
 Model = os.environ.get("RACE_MODEL", _BACKEND["race"])
+CLEAN_Model = os.environ.get("CLEAN_MODEL", _BACKEND["clean"])
 FACT_Model = os.environ.get("FACT_MODEL", _BACKEND["fact"])
 
 # Jina is unchanged — citation scraping still uses it.
