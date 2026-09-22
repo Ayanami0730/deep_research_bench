@@ -1,9 +1,9 @@
 """OpenAI / OpenRouter backed LLM client for DRB-GPT5.
 
 Drop-in replacement for the original google.genai-based client. Exposes the
-same surface (`AIClient`, `call_model`, `scrape_url`, `Model`, `FACT_Model`)
-so the rest of the codebase (deepresearch_bench_race.py, extract.py,
-deduplicate.py, validate.py, generate_criteria.py) is unchanged.
+same surface (`AIClient`, `call_model`, `scrape_url`, `Model`, `CLEAN_Model`,
+`FACT_Model`) so the rest of the codebase (deepresearch_bench_race.py,
+extract.py, deduplicate.py, validate.py, generate_criteria.py) is unchanged.
 
 Backend selection via env `LLM_BACKEND`:
 
