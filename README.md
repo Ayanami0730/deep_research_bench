@@ -13,6 +13,8 @@
 <h5 align="center"> If you like our project, please give us a star ⭐ on GitHub for the latest update.</h5>
 
 # ✨ News
++ [22 Sep 2026] 🔧 **Cleaning Model Updated to GPT-5.6 Luna**: We have updated the default article-cleaning model in the RACE evaluation pipeline from **GPT-5.5** to **GPT-5.6 Luna**, while keeping **GPT-5.5** as the official RACE judge and **GPT-5.4-mini** for the FACT pipeline. This change reduces the cost of the cleaning stage while preserving the official scoring setup.
+
 + [11 May 2026] 🎯 **Official Evaluator Switched to GPT-5.5**: Following Google's announced June 17, 2026 deprecation of Gemini-2.5-Pro, we benchmarked three frontier reasoning models as candidate replacements on the human-annotated subset (50 tasks × 4 target DRAs = 200 articles), measuring each candidate's alignment with human judgments (human inter-annotator agreement baseline = **68.78%**). All three candidates exceed this baseline by 1.3–3 points; **GPT-5.5 wins on Overall, PAR, and FAS**. We are adopting it as the new RACE evaluator (with **GPT-5.4-mini** for the FACT pipeline). Scores:
 
   | Candidate evaluator | Overall ↑ | PAR | OPC | FAP | FAS |
